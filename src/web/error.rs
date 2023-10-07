@@ -4,6 +4,7 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use serde::Serialize;
+use tracing::debug;
 
 pub type Result<T> = core::result::Result<T, Error>;
 
@@ -27,7 +28,7 @@ impl std::error::Error for Error {}
 // Implement axum's into response trait
 impl IntoResponse for Error {
     fn into_response(self) -> Response {
-        println!("->> {:<12} - model::Error {self:?}", "INTO_RES");
+        debug!("{:<12} - model::Error {self:?}", "INTO_RES");
 
         let mut resp = StatusCode::INTERNAL_SERVER_ERROR.into_response();
 

@@ -1,8 +1,12 @@
+mod config;
 mod ctx;
 mod error;
 mod log;
 mod model;
 mod web;
+
+pub use self::error::{Error, Result};
+pub use config::config; // This way we can use crate::config
 
 use axum::{middleware, Router};
 use model::ModelManager;
@@ -11,10 +15,7 @@ use tower_cookies::CookieManagerLayer;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
-use crate::{
-    error::Result,
-    web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes},
-};
+use crate::web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes};
 
 #[tokio::main]
 async fn main() -> Result<()> {

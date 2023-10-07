@@ -1,4 +1,11 @@
-
+#Env vars for cargo commands
 [env]
 
+#Activate logging lvl
 RUST_LOG = "surreal_axum=debug"
+
+
+# -- Config map
+# In deployments this should be absolutes
+SERVICE_WEB_FOLDER = "web-folder/"
+

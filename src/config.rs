@@ -15,12 +15,14 @@ pub fn config() -> &'static Config {
 #[allow(non_snake_case)]
 pub struct Config {
     pub WEB_FOLDER: String,
+    pub DATABASE_PATH: String,
 }
 
 impl Config {
     pub fn load_from_env() -> Result<Config> {
         Ok(Config {
             WEB_FOLDER: get_env("SERVICE_WEB_FOLDER")?,
+            DATABASE_PATH: get_env("SERVICE_DATABASE_PATH")?,
         })
     }
 }

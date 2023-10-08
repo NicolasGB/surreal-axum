@@ -1,3 +1,4 @@
+mod _dev_utils;
 mod config;
 mod ctx;
 mod error;
@@ -15,7 +16,10 @@ use tower_cookies::CookieManagerLayer;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
-use crate::web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes};
+use crate::{
+    _dev_utils::init_dev,
+    web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes},
+};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -23,6 +27,8 @@ async fn main() -> Result<()> {
         .with_target(true)
         .with_env_filter(EnvFilter::from_default_env())
         .init();
+
+    let _db = init_dev().await;
 
     //Get the model manager
     let mm = ModelManager::new().await?;

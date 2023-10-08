@@ -8,4 +8,5 @@ RUST_LOG = "surreal_axum=debug"
 # -- Config map
 # In deployments this should be absolutes
 SERVICE_WEB_FOLDER = "web-folder/"
+SERVICE_DATABASE_PATH = "database.db"
 

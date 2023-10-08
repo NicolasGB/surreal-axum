@@ -28,7 +28,8 @@ async fn main() -> Result<()> {
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
-    let _db = init_dev().await;
+    // Comment this as the lazy clobal statiocs rightfully locks the db
+    init_dev().await?;
 
     //Get the model manager
     let mm = ModelManager::new().await?;

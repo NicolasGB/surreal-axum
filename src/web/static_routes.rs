@@ -7,8 +7,6 @@ use tower_http::services::ServeDir;
 
 use crate::config;
 
-const WEB_FOLDER: &str = "web-folder";
-
 pub fn serve_dir() -> MethodRouter {
     async fn handle_404() -> (StatusCode, &'static str) {
         (StatusCode::NOT_FOUND, "Ressource not found")

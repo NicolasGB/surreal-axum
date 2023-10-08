@@ -15,7 +15,10 @@ pub fn config() -> &'static Config {
 #[allow(non_snake_case)]
 pub struct Config {
     pub WEB_FOLDER: String,
+
     pub DATABASE_PATH: String,
+    pub DATABASE_NS: String,
+    pub DATABASE_DB: String,
 }
 
 impl Config {
@@ -23,6 +26,8 @@ impl Config {
         Ok(Config {
             WEB_FOLDER: get_env("SERVICE_WEB_FOLDER")?,
             DATABASE_PATH: get_env("SERVICE_DATABASE_PATH")?,
+            DATABASE_NS: get_env("SERVICE_DATABASE_NAMESPACE")?,
+            DATABASE_DB: get_env("SERVICE_DATABASE_DB")?,
         })
     }
 }

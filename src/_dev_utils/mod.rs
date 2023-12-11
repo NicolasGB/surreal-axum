@@ -1,37 +1,18 @@
-use once_cell::sync::Lazy;
-use serde::{Deserialize, Serialize};
-use surrealdb::{
-    engine::local::{Db, File},
-    Surreal,
-};
-use tracing::info;
+use tokio::sync::OnceCell;
 
-use crate::config;
+use crate::model::ModelManager;
 
-// static DB: Lazy<Surreal<Db>> = Lazy::new(Surreal::init);
+pub async fn init_test() -> ModelManager {
+    static INIT: OnceCell<ModelManager> = OnceCell::const_new();
 
-#[derive(Serialize, Deserialize, Debug)]
-struct User {
-    first_name: String,
-}
+    let mm = INIT
+        .get_or_init(|| async {
+            ModelManager::new().await.unwrap_or_else(|err| {
+                panic!("Coult not init ModelManager for tests, cause: {err:?}")
+            })
+        })
+        .await;
 
-pub async fn init_dev() -> Result<(), surrealdb::Error> {
-    //Connect to db
-    let db = Surreal::new::<File>(&config().DATABASE_PATH)
-        .await
-        .unwrap_or_else(|err| panic!("Could not connect to database, cause: {err:?}"));
-
-    info!("Connected to database");
-
-    db.use_ns("test")
-        .use_db("test")
-        .await
-        .unwrap_or_else(|err| {
-            panic!("Could not set namespace or use designated db, cause: {err:?}")
-        });
-
-    // Initialize db data
-    db.query("DEFINE TABLE user SCHEMALESS").await?;
-
-    Ok(())
+    //A mm is build to be cloned
+    mm.clone()
 }

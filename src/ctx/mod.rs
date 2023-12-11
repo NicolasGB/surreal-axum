@@ -7,6 +7,7 @@ pub struct Ctx {
     user_id: i64,
 }
 
+// Constructors
 impl Ctx {
     pub fn root_ctx() -> Self {
         Ctx { user_id: 0 }

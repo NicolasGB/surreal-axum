@@ -16,10 +16,7 @@ use tower_cookies::CookieManagerLayer;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
-use crate::{
-    _dev_utils::init_dev,
-    web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes},
-};
+use crate::web::{mw_auth, mw_res_map::mw_reponse_map, routes_login, static_routes};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -29,7 +26,7 @@ async fn main() -> Result<()> {
         .init();
 
     // Comment this as the lazy clobal statiocs rightfully locks the db
-    init_dev().await?;
+    // init_dev().await?;
 
     //Get the model manager
     let mm = ModelManager::new().await?;
